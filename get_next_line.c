@@ -6,7 +6,7 @@
 /*   By: ghambrec <ghambrec@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:04:19 by ghambrec          #+#    #+#             */
-/*   Updated: 2024/10/30 15:00:25 by ghambrec         ###   ########.fr       */
+/*   Updated: 2024/10/30 16:28:27 by ghambrec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ char	*join_new_buffer(char *buffer, char *read_buffer)
 
 	if (!buffer)
 	{
-		free(buffer);
 		return(ft_strdup(read_buffer));
 	}
 	new_buffer = ft_strjoin(buffer, read_buffer);
@@ -50,7 +49,10 @@ char	*return_line(char **buffer)
 	ft_strlcpy(returnline, *buffer, len + 1);
 	new_buffer = (char *)malloc((ft_strlen(*buffer) - len + 1) * sizeof(char));
 	if (!new_buffer)
+	{
+		free(returnline);
 		return (NULL);
+	}
 	ft_strlcpy(new_buffer, *buffer + len, ft_strlen(*buffer) - len + 1);
 	free(*buffer);
 	*buffer = new_buffer;
@@ -70,6 +72,8 @@ char	*get_next_line(int fd)
 	{
 		read_buffer[bytes_read] = '\0';
 		buffer = join_new_buffer(buffer, read_buffer);
+		if (!buffer)
+			return (NULL);
 		if (ft_strchr(buffer, '\n'))
 		{
 			return (return_line(&buffer));
@@ -78,26 +82,27 @@ char	*get_next_line(int fd)
 	if (bytes_read < 0 || !buffer || !*buffer)
 	{
 		free(buffer);
+		buffer = NULL;
 		return (NULL);	
 	}
 	return (return_line(&buffer));
 }
 
-int	main(void)
-{
-	int fd = open("test.txt",O_RDONLY);
-	char *val;
-	if (fd == -1)
-		printf("error opening file\n");
-	else
-	{
-		while ((val = get_next_line(fd)))
-		{
-			printf("%s", val);
-			free(val);
-		}
-		close(fd);
-	}
+// int	main(void)
+// {
+// 	int fd = open("test.txt",O_RDONLY);
+// 	char *val;
+// 	if (fd == -1)
+// 		printf("error opening file\n");
+// 	else
+// 	{
+// 		while ((val = get_next_line(fd)))
+// 		{
+// 			printf("%s", val);
+// 			free(val);
+// 		}
+// 		close(fd);
+// 	}
 		
-	return(0);
-}
+// 	return(0);
+// }
