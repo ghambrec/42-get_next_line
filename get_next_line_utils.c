@@ -6,7 +6,7 @@
 /*   By: ghambrec <ghambrec@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:04:12 by ghambrec          #+#    #+#             */
-/*   Updated: 2024/10/29 16:36:56 by ghambrec         ###   ########.fr       */
+/*   Updated: 2024/10/30 12:13:39 by ghambrec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,45 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (res);
 }
 
+char	*ft_strchr(const char *str, int c)
+{
+	char	ch;
+
+	ch = (char)c;
+	while (*str != '\0')
+	{
+		if (*str == ch)
+		{
+			return ((char *)str);
+		}
+		str++;
+	}
+	if (ch == '\0')
+	{
+		return ((char *)str);
+	}
+	return (NULL);
+}
+
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+{
+	size_t	i;
+	size_t	src_len;
+
+	i = 0;
+	src_len = ft_strlen(src);
+	if (dstsize != 0)
+	{
+		while (i < dstsize - 1 && src[i])
+		{
+			dst[i] = src[i];
+			i++;
+		}
+		dst[i] = '\0';
+	}
+	return (src_len);
+}
+
 // static int	calc_len_substr(size_t strlen, size_t start, size_t len)
 // {
 // 	size_t	substrlen;
@@ -123,23 +162,5 @@ char	*ft_strjoin(char const *s1, char const *s2)
 // 	return (substr[i] = '\0', substr);
 // }
 
-char	*ft_strchr(const char *str, int c)
-{
-	char	ch;
 
-	ch = (char)c;
-	while (*str != '\0')
-	{
-		if (*str == ch)
-		{
-			return ((char *)str);
-		}
-		str++;
-	}
-	if (ch == '\0')
-	{
-		return ((char *)str);
-	}
-	return (NULL);
-}
 
