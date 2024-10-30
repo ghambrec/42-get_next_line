@@ -6,7 +6,7 @@
 /*   By: ghambrec <ghambrec@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:04:19 by ghambrec          #+#    #+#             */
-/*   Updated: 2024/10/30 13:06:59 by ghambrec         ###   ########.fr       */
+/*   Updated: 2024/10/30 15:00:25 by ghambrec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ char	*join_new_buffer(char *buffer, char *read_buffer)
 char	*return_line(char **buffer)
 {
 	char	*returnline;
-	char	*nl_position;
 	char	*new_buffer;
 	size_t	len;
 
@@ -70,25 +69,19 @@ char	*get_next_line(int fd)
 	while ((bytes_read = read(fd, read_buffer, BUFFER_SIZE)) > 0)
 	{
 		read_buffer[bytes_read] = '\0';
-		buffer = join_new_buffer(buffer, read_buffer); // TODO: join into new buffer + free the old one ==> DONE
-		// printf("[%s]", read_buffer);
-		// printf("[%s]", buffer);
+		buffer = join_new_buffer(buffer, read_buffer);
 		if (ft_strchr(buffer, '\n'))
 		{
-			printf("[%s]", buffer);
-			return_line(&buffer);
-			printf("\n\n");
-			printf("[%s]", buffer);
-			// TODO: return the line until the NL + renew the buffer
-			printf("\n***");
-			return (NULL);
+			return (return_line(&buffer));
 		}
 	}
-	
-	return (NULL);
+	if (bytes_read < 0 || !buffer || !*buffer)
+	{
+		free(buffer);
+		return (NULL);	
+	}
+	return (return_line(&buffer));
 }
-
-
 
 int	main(void)
 {
@@ -98,16 +91,13 @@ int	main(void)
 		printf("error opening file\n");
 	else
 	{
-		get_next_line(fd);
-		// get_next_line(fd);
-		// while (val = get_next_line(fd))
-		// {
-		// 	printf("%s", val);
-		// 	// free(val);
-		// }
+		while ((val = get_next_line(fd)))
+		{
+			printf("%s", val);
+			free(val);
+		}
 		close(fd);
 	}
-		
 		
 	return(0);
 }

@@ -6,7 +6,7 @@
 /*   By: ghambrec <ghambrec@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:04:21 by ghambrec          #+#    #+#             */
-/*   Updated: 2024/10/30 12:31:48 by ghambrec         ###   ########.fr       */
+/*   Updated: 2024/10/30 14:24:14 by ghambrec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
-
-#include <string.h> //wieder rausnehmen
 
 char	*get_next_line(int fd);
 
