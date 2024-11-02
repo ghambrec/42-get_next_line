@@ -6,7 +6,7 @@
 /*   By: ghambrec <ghambrec@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:04:19 by ghambrec          #+#    #+#             */
-/*   Updated: 2024/11/02 14:33:26 by ghambrec         ###   ########.fr       */
+/*   Updated: 2024/11/02 14:50:20 by ghambrec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,14 @@ char	*return_line(char **buffer)
 		len = ft_strlen(*buffer);
 	returnline = (char *)malloc((len + 1) * sizeof(char));
 	if (!returnline)
-		return (free(*buffer), NULL);
+		return (free(*buffer), *buffer = NULL, NULL);
 	ft_strlcpy(returnline, *buffer, len + 1);
 	new_buffer = (char *)malloc((ft_strlen(*buffer) - len + 1) * sizeof(char));
 	if (!new_buffer)
 	{
 		free(returnline);
 		free(*buffer);
+		*buffer = NULL;
 		return (NULL);
 	}
 	ft_strlcpy(new_buffer, *buffer + len, ft_strlen(*buffer) - len + 1);
