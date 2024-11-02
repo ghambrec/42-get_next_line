@@ -6,11 +6,11 @@
 /*   By: ghambrec <ghambrec@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:04:19 by ghambrec          #+#    #+#             */
-/*   Updated: 2024/11/02 16:14:30 by ghambrec         ###   ########.fr       */
+/*   Updated: 2024/11/02 19:52:20 by ghambrec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 // create new buffer joining both buffer and read_buffer,
 // after that free the old buffer
