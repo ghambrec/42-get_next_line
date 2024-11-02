@@ -6,22 +6,18 @@
 /*   By: ghambrec <ghambrec@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:04:19 by ghambrec          #+#    #+#             */
-/*   Updated: 2024/11/02 14:17:22 by ghambrec         ###   ########.fr       */
+/*   Updated: 2024/11/02 14:33:26 by ghambrec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-// create new buffer joining both buffer and read_buffer, after that free the old buffer
+// create new buffer joining both buffer and read_buffer,
+// after that free the old buffer
 char	*join_new_buffer(char *buffer, char *read_buffer)
 {
 	char	*new_buffer;
 
-    // if (!read_buffer)
-    // {
-    //     free(buffer);
-    //     return (NULL);
-    // }
 	if (!buffer)
 	{
 		return (ft_strdup(read_buffer));
@@ -44,10 +40,7 @@ char	*return_line(char **buffer)
 		len = ft_strlen(*buffer);
 	returnline = (char *)malloc((len + 1) * sizeof(char));
 	if (!returnline)
-	{
-		free(*buffer);
-		return (NULL);
-	}
+		return (free(*buffer), NULL);
 	ft_strlcpy(returnline, *buffer, len + 1);
 	new_buffer = (char *)malloc((ft_strlen(*buffer) - len + 1) * sizeof(char));
 	if (!new_buffer)
@@ -70,16 +63,16 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE < 0)
 		return (NULL);
-	while ((bytes_read = read(fd, read_buffer, BUFFER_SIZE)) > 0)
+	bytes_read = read(fd, read_buffer, BUFFER_SIZE);
+	while (bytes_read > 0)
 	{
 		read_buffer[bytes_read] = '\0';
 		buffer = join_new_buffer(buffer, read_buffer);
 		if (!buffer)
 			return (NULL);
 		if (ft_strchr(buffer, '\n'))
-		{
 			return (return_line(&buffer));
-		}
+		bytes_read = read(fd, read_buffer, BUFFER_SIZE);
 	}
 	if (bytes_read < 0 || !buffer || !*buffer)
 	{
@@ -105,6 +98,5 @@ char	*get_next_line(int fd)
 // 		}
 // 		close(fd);
 // 	}
-		
 // 	return(0);
 // }
