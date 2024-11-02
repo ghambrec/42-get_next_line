@@ -6,7 +6,7 @@
 /*   By: ghambrec <ghambrec@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:04:19 by ghambrec          #+#    #+#             */
-/*   Updated: 2024/11/02 16:03:01 by ghambrec         ###   ########.fr       */
+/*   Updated: 2024/11/02 16:14:30 by ghambrec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	*get_next_line(int fd)
 	char		read_buffer[BUFFER_SIZE + 1];
 	ssize_t		bytes_read;
 
-	if (fd < 0 || fd > 1999 || BUFFER_SIZE < 0)
+	if (fd < 0 || fd >= 2000 || BUFFER_SIZE < 0)
 		return (NULL);
 	bytes_read = read(fd, read_buffer, BUFFER_SIZE);
 	while (bytes_read > 0)
