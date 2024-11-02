@@ -6,26 +6,25 @@
 /*   By: ghambrec <ghambrec@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:04:19 by ghambrec          #+#    #+#             */
-/*   Updated: 2024/10/30 16:28:27 by ghambrec         ###   ########.fr       */
+/*   Updated: 2024/11/02 14:17:22 by ghambrec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-# include <stdio.h>
-
-#ifndef BUFFER_SIZE
-#define BUFFER_SIZE 5
-#endif
 
 // create new buffer joining both buffer and read_buffer, after that free the old buffer
 char	*join_new_buffer(char *buffer, char *read_buffer)
 {
 	char	*new_buffer;
 
+    // if (!read_buffer)
+    // {
+    //     free(buffer);
+    //     return (NULL);
+    // }
 	if (!buffer)
 	{
-		return(ft_strdup(read_buffer));
+		return (ft_strdup(read_buffer));
 	}
 	new_buffer = ft_strjoin(buffer, read_buffer);
 	free(buffer);
@@ -45,12 +44,16 @@ char	*return_line(char **buffer)
 		len = ft_strlen(*buffer);
 	returnline = (char *)malloc((len + 1) * sizeof(char));
 	if (!returnline)
+	{
+		free(*buffer);
 		return (NULL);
+	}
 	ft_strlcpy(returnline, *buffer, len + 1);
 	new_buffer = (char *)malloc((ft_strlen(*buffer) - len + 1) * sizeof(char));
 	if (!new_buffer)
 	{
 		free(returnline);
+		free(*buffer);
 		return (NULL);
 	}
 	ft_strlcpy(new_buffer, *buffer + len, ft_strlen(*buffer) - len + 1);
@@ -58,7 +61,6 @@ char	*return_line(char **buffer)
 	*buffer = new_buffer;
 	return (returnline);
 }
-
 
 char	*get_next_line(int fd)
 {
@@ -83,7 +85,7 @@ char	*get_next_line(int fd)
 	{
 		free(buffer);
 		buffer = NULL;
-		return (NULL);	
+		return (NULL);
 	}
 	return (return_line(&buffer));
 }
