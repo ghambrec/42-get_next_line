@@ -6,7 +6,7 @@
 /*   By: ghambrec <ghambrec@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:04:19 by ghambrec          #+#    #+#             */
-/*   Updated: 2024/11/02 19:52:20 by ghambrec         ###   ########.fr       */
+/*   Updated: 2024/11/04 10:27:55 by ghambrec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	*return_line(char **buffer)
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer[2000];
+	static char	*buffer[OPEN_MAX];
 	char		read_buffer[BUFFER_SIZE + 1];
 	ssize_t		bytes_read;
 
